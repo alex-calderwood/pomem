@@ -1,4 +1,4 @@
-function diff(s1, s2) {
+function coloredDiff(s1, s2) {
 	console.log('s1: ', s1);
 	console.log('s2: ', s2);
 
@@ -16,8 +16,8 @@ function diff(s1, s2) {
 		table[i][0] = 0;
 	}
 
-	for (var i = 0; i < s2.length; i++) {
-		table[0][i] = 0;
+	for (var j = 0; j < s2.length; j++) {
+		table[0][j] = 0;
 	}
 
 	// Populate table using LCS algorithm found at https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
@@ -31,16 +31,7 @@ function diff(s1, s2) {
 		}
 	}
 
-	// Print table
-//	for (var i = 0; i < s1.length; i++) {
-//		var line = "";
-  //              for (var j = 0; j < s2.length; j++) {
-    //                    line += table[i][j] + " ";
-      //          }
-	//	console.log(line);
-        //}
-
-	// Print diff
+	// Trace back through table to get diff
 	function getDiff(i, j) {
 		if (i > 0 && j > 0 && s1[i] == s2[j]) {
 			return getDiff(i - 1, j - 1) + s1[i];
@@ -59,9 +50,13 @@ function diff(s1, s2) {
 	return getDiff(s1.length - 1, s2.length - 1)	
 }
 
-string1 = "What is the name"
+string1 = "What is name"
 string2 = "What is your name"
 
-var diff = diff(string1, string2);
+var diff = coloredDiff(string1, string2);
 
 console.log(diff);
+
+module.exports = {
+	diff: coloredDiff
+}
